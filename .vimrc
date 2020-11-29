@@ -13,22 +13,18 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-
-"NERDTree
-"Start when opening directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" Close when last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+filetype plugin on
 
 "Vim-Plug
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
+" Remaps
 let mapleader=" " 
-
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>k :wincmd k<CR>
@@ -40,3 +36,12 @@ nnoremap <silent> <Leader>+ :vertical resize -5<CR>
 
 colorscheme gruvbox
 set background=dark
+
+" Nerd Tree
+" Start when opening directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" Close when it's the last window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeShowHidden=1
+let NERDTreeNumbers=1
